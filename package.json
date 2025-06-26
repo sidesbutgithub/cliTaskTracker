@@ -1,7 +1,7 @@
 {
   "name": "tasktracker",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
@@ -14,8 +14,11 @@
   "dependencies": {
     "typescript": "^5.8.3"
   },
+  "module": "module",
   "devDependencies": {
-    "@types/node": "^24.0.4"
+    "@types/node": "^24.0.4",
+    "tsx": "^4.20.3",
+    "node: process": "^0.1.27"
   },
   "bin": {
     "taskTracker": "./dist/index.js"
