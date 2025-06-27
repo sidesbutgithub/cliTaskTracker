@@ -6,13 +6,34 @@
 import {argv} from "node:process";
 import fs from "fs";
 
-let tasksList = "taskList.json";
+const tasksList = "taskList.json";
+
+
+interface task {
+  desc: string,
+  status: "done" | "todo" | "in-progress",
+  createdAt: string,
+  dueDate: null | string,
+}
+
+const testTask: task = {
+  desc : "testDesc",
+  status: "todo",
+  createdAt: Date(),
+  dueDate: null
+}
 
 if (!fs.existsSync(tasksList)){
   fs.writeFileSync(tasksList, "");
 }
 
-let testData = {"name": argv[2]};
+const tasks = JSON.parse(fs.readFileSync(tasksList, { encoding: 'utf8' }));
+console.log(tasks);
+console.log(typeof tasks);
+fs.writeFileSync(tasksList, JSON.stringify(tasks));
+/*
+testData.push({"name": argv[2]});
+testData.push(testTask);
 
 fs.writeFileSync(tasksList, JSON.stringify(testData));
 /*
@@ -24,4 +45,5 @@ argv.forEach((val: string, index: number) => {
 
 
 
-console.log(argv[2])
+console.log(Date());
+console.log(typeof Date());
