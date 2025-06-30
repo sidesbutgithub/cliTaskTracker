@@ -20,7 +20,6 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^24.0.4",
-    "tsx": "^4.20.3",
-    "node: process": "^0.1.27"
+    "tsx": "^4.20.3"
   }
 }
