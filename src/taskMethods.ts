@@ -46,7 +46,7 @@ function updateTask(database: object, taskName: string, attributeName: string, n
   switch (attributeName){
     case "createdAt":
     case "lastUpdate":
-      console.log("unable to change target attribute of task");
+      console.log(`unable to change ${attributeName} of task`);
       return;
     case "name":
       if (newVal in database){
@@ -63,7 +63,7 @@ function updateTask(database: object, taskName: string, attributeName: string, n
         console.log("invalid value for taskStatus");
         return;
       }
-    case "desc":
+    default:
       // @ts-ignore
       const updateLog = `update ${taskName}: ${currTask[attributeName]} -> ${newVal}`;
       // @ts-ignore
@@ -73,12 +73,72 @@ function updateTask(database: object, taskName: string, attributeName: string, n
       newUpdate[updateLog] = Date();
       currTask.lastUpdate = newUpdate;
       break;
-    default:
-      console.log("attribute name not in use");
-      return;
   }
-
-
 }
 
-export {task, addTask, deleteTask, updateTask}
+function listTask(database: object, filterAttribute: string, filterVal: string): void{
+  if (filterAttribute == "attributes"){
+    listAttributes(database);
+    return;
+  }
+
+  if (filterAttribute == "names"){
+    listNames(database);
+    return;
+  }
+
+  let tasksFound = 0;
+  if (filterAttribute === undefined){
+    for (const [key, val] of Object.entries(database)){
+      tasksFound+=1;
+      console.log(key);
+      for (const [subKey, subVal] of Object.entries(val)){
+        console.log(`${subKey} : ${subVal}`);
+      }
+      console.log();
+    }
+    console.log(`${tasksFound} tasks found`);
+    return;
+  }
+
+  for (const [key, val] of Object.entries(database)){
+    if (filterAttribute in val){
+      if (val[filterAttribute] === filterVal){
+        tasksFound+=1;
+        console.log(key);
+        for (const [subKey, subVal] of Object.entries(val)){
+          console.log(`${subKey} : ${subVal}`);
+        }
+        console.log();
+      }
+    }
+  }
+  console.log(`${tasksFound} tasks found for ${filterAttribute} == ${filterVal}`);
+  if (tasksFound===0){
+    console.log("try another attribute or value to filter by for better results")
+  }
+}
+
+function listAttributes(database:object){
+  console.log("List of Task Attributes:");
+  const attributeList = new Set();
+  for (const [key, val] of Object.entries(database)){
+    for (const attributeName in val){
+      attributeList.add(attributeName);
+    }
+  }
+  console.log(Array.from(attributeList));
+}
+
+function listNames(database:object){
+  console.log("List of Task Names:");
+  const nameList = new Set();
+  for (const key in database){
+    nameList.add(key);
+
+  }
+  console.log(Array.from(nameList));
+}
+
+
+export {task, addTask, deleteTask, updateTask, listTask}
