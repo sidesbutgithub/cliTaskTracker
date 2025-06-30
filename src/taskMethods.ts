@@ -2,7 +2,7 @@ interface task {
   desc: string,
   taskStatus: "done" | "todo" | "in-progress",
   createdAt: string,
-  lastUpdate: object,
+  lastUpdate: string,
 }
 
 function addTask(database: object, taskName:string, taskDesc:string|undefined): void{
@@ -19,7 +19,7 @@ function addTask(database: object, taskName:string, taskDesc:string|undefined): 
     desc: taskDesc,
     taskStatus: "todo",
     createdAt: Date(),
-    lastUpdate: {"created": Date()}
+    lastUpdate: `created task ${taskName}`
   }
   // @ts-ignore
   database[taskName] = newTask;
@@ -57,6 +57,8 @@ function updateTask(database: object, taskName: string, attributeName: string, n
       database[newVal] = database[taskName];
       // @ts-ignore
       delete database[taskName];
+      // @ts-ignore
+      database[newVal].lastUpdate = `task name change: ${taskName} -> ${newVal}`;
       break;
     case "taskStatus":
       if (!(newVal==="done" || newVal==="todo" || newVal==="in-progress")){
@@ -64,14 +66,11 @@ function updateTask(database: object, taskName: string, attributeName: string, n
         return;
       }
     default:
+      console.log("huh")
       // @ts-ignore
-      const updateLog = `update ${taskName}: ${currTask[attributeName]} -> ${newVal}`;
+      currTask.lastUpdate = `update ${taskName}: ${currTask[attributeName]} -> ${newVal}`;
       // @ts-ignore
       currTask[attributeName] = newVal;
-      const newUpdate = {};
-      // @ts-ignore
-      newUpdate[updateLog] = Date();
-      currTask.lastUpdate = newUpdate;
       break;
   }
 }
