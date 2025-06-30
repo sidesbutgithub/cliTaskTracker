@@ -4,8 +4,16 @@
 import {argv} from "node:process";
 import fs from "fs";
 import {addTask, deleteTask, updateTask, listTask} from './taskMethods.js';
-const tasksList = "taskList.json";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const tasksList = `${dirname(__dirname)}\\taskList.json`;
 const tasks = fs.existsSync(tasksList) ? JSON.parse(fs.readFileSync(tasksList, { encoding: 'utf8' })) : {};
+
 
 switch (argv[2]){
   case "add":

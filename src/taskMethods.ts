@@ -11,7 +11,7 @@ function addTask(database: object, taskName:string, taskDesc:string|undefined): 
     return;
   }
 
-  if (taskDesc===undefined){
+  if (taskDesc===""){
     taskDesc = taskName;
   }
 
