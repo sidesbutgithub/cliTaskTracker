@@ -3,7 +3,7 @@
 //use synchronous file handling as this is a CLI tool
 import {argv} from "node:process";
 import fs from "fs";
-import {addTask, deleteTask, updateTask, listTask} from './taskMethods.js';
+import {addTask, deleteTask, updateTask, listTask, archiveTask, unArchiveTask} from './taskMethods.js';
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -12,8 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const tasksList = `${dirname(__dirname)}\\taskList.json`;
-const tasks = fs.existsSync(tasksList) ? JSON.parse(fs.readFileSync(tasksList, { encoding: 'utf8' })) : {};
-
+const tasks = fs.existsSync(tasksList) ? JSON.parse(fs.readFileSync(tasksList, { encoding: 'utf8' })) : {"archive":{}};
 
 switch (argv[2]){
   case "add":
@@ -30,9 +29,20 @@ switch (argv[2]){
     listTask(tasks, argv[3], argv.slice(4).join(" "));
     break;
   case "clear":
+    if (argv[3] === "archive"){
+      for (const task in tasks.archive) {
+        delete tasks[task];
+      }
+    }
     for (const task in tasks) {
       delete tasks[task];
     }
+    break;
+  case "archive":
+    archiveTask(tasks, argv[3]);
+    break;
+  case "unarchive":
+    unArchiveTask(tasks, argv[3]);
     break;
   default:
     console.log("not a valid command");

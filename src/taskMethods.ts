@@ -86,9 +86,17 @@ function listTask(database: object, filterAttribute: string, filterVal: string):
     return;
   }
 
+  if (filterAttribute == "archive"){
+    listArchive(database);
+    return;
+  }
+
   let tasksFound = 0;
   if (filterAttribute === undefined){
     for (const [key, val] of Object.entries(database)){
+      if (key == "archive"){
+        continue;
+      }
       tasksFound+=1;
       console.log(key);
       for (const [subKey, subVal] of Object.entries(val)){
@@ -139,5 +147,50 @@ function listNames(database:object){
   console.log(Array.from(nameList));
 }
 
+function archiveTask(database: object, taskName:string): void{
+  if (!(taskName in database)){
+    console.log("task name not in use");
+    return;
+  }
+  // @ts-ignore
+  database["archive"][taskName] = database[taskName]
 
-export {task, addTask, deleteTask, updateTask, listTask}
+  deleteTask(database, taskName)
+  return;
+}
+
+function unArchiveTask(database: object, taskName:string): void{
+  // @ts-ignore
+  if (!(taskName in database.archive)){
+    console.log("task name not in archive");
+    return;
+  }
+  
+  // @ts-ignore
+  database[taskName] = database["archive"][taskName];
+  // @ts-ignore
+  delete database.archive[taskName];
+
+  return;
+}
+
+function listArchive(database: object):void{
+
+  let tasksFound = 0;
+  // @ts-ignore
+  for (const [key, val] of Object.entries(database.archive)){
+    tasksFound+=1;
+    console.log(key);
+    // @ts-ignore
+    for (const [subKey, subVal] of Object.entries(val)){
+      console.log(`${subKey} : ${subVal}`);
+    }
+    console.log();
+  }
+  console.log(`${tasksFound} tasks in archive`);
+  return;
+}
+
+
+
+export {addTask, deleteTask, updateTask, listTask, archiveTask, unArchiveTask}
