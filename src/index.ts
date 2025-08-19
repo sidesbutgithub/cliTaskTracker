@@ -14,6 +14,10 @@ const __dirname = dirname(__filename);
 const tasksList = `${dirname(__dirname)}\\taskList.json`;
 const tasks = fs.existsSync(tasksList) ? JSON.parse(fs.readFileSync(tasksList, { encoding: 'utf8' })) : {"archive":{}};
 
+if (!(tasks.hasOwnProperty('archive'))){
+  tasks.archive = {};
+}
+
 switch (argv[2]){
   case "add":
     //argv[0] argv[1] add <taskname> <taskdesc>
