@@ -17,23 +17,64 @@ npm link
 
 ## Usage
 
-### Adding tasks
+### Add tasks
 ```
 cliTaskTracker add <taskName> <taskDescription>
 ```
-Note: You do not need to format the description in any special way, all remaining arguments after the taskname will be parsed as the description
+Creates a task of <taskName> and description <taskDescription> with status todo
+If <taskDescription> is not provided, description is set to <taskName> 
 
-### Updating tasks
+### Update tasks
 ```
-cliTaskTracker update <featureName> <featureValue>
+cliTaskTracker update <taskName> <featureName> <featureValue>
 ```
+Updates values of <featureName> of <taskName> to <featureValue>
+Creates new custom feature if <taskName> does not currently have feature of <featureName>
 
-### Deleting tasks
+### Delete tasks
 ```
 cliTaskTracker delete <taskName>
 ```
 
-### List all tasks
+### List tasks
 ```
 cliTaskTracker list
+```
+Lists all tasks(not in archive)
+
+```
+cliTaskTracker list archive
+```
+Lists all tasks in archive
+
+```
+cliTaskTracker list <featureName> <featureValue>
+```
+Lists all tasks(not in archive) with <featureName> of <featureValue>
+
+```
+cliTaksTracker list attributes
+```
+Lists all attributes of tasks(not in archive)
+
+### Archive
+```
+cliTaskTracker archive <taskName>
+```
+Adds task of taskName to archive
+
+```
+cliTaskTracker unarchive <taskName>
+```
+Removes <taskName> from archive and adds it back to the full task list
+
+### Clear
+```
+cliTaskTracker clear
+```
+Deletes all tasks(including archive)
+```
+cliTaskTracker clear archive
+```
+Deletes all tasks in archive
 ```

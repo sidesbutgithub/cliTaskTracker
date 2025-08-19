@@ -66,7 +66,6 @@ function updateTask(database: object, taskName: string, attributeName: string, n
         return;
       }
     default:
-      console.log("huh")
       // @ts-ignore
       currTask.lastUpdate = `update ${taskName}: ${currTask[attributeName]} -> ${newVal}`;
       // @ts-ignore

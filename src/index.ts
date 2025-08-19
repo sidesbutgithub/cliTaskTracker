@@ -17,22 +17,23 @@ const tasks = fs.existsSync(tasksList) ? JSON.parse(fs.readFileSync(tasksList, {
 switch (argv[2]){
   case "add":
     //argv[0] argv[1] add <taskname> <taskdesc>
-    addTask(tasks, argv[3], argv.slice(4).join(" "));
+    addTask(tasks, argv[3], argv[4]);
     break;
   case "delete":
     deleteTask(tasks, argv[3]);
     break;
   case "update":
-    updateTask(tasks, argv[3], argv[4], argv.slice(5).join(" "));
+    updateTask(tasks, argv[3], argv[4], argv[5]);
     break;
   case "list":
-    listTask(tasks, argv[3], argv.slice(4).join(" "));
+    listTask(tasks, argv[3], argv[4]);
     break;
   case "clear":
     if (argv[3] === "archive"){
       for (const task in tasks.archive) {
         delete tasks[task];
       }
+      break;
     }
     for (const task in tasks) {
       delete tasks[task];
