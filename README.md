@@ -22,14 +22,14 @@ npm link
 ```
 cliTaskTracker add <taskName> <taskDescription>
 ```
-Creates a task of `<taskName>` and description `<taskDescription>` with status todo
+Creates a task of `<taskName>` and description `<taskDescription>` with status todo   
 If `<taskDescription>` is not provided, description is set to `<taskName>` 
 
 ### Update tasks
 ```
 cliTaskTracker update <taskName> <featureName> <featureValue>
 ```
-Updates values of `<featureName>` of `<taskName>` to `<featureValue>`
+Updates values of `<featureName>` of `<taskName>` to `<featureValue>`  
 Creates new custom feature if `<taskName>` does not currently have feature of `<featureName>`
 
 ### Delete tasks
@@ -73,9 +73,9 @@ Removes `<taskName>` from archive and adds it back to the full task list
 ```
 cliTaskTracker clear
 ```
-Deletes all tasks(including archive)
+Deletes all tasks (including archive)
 ```
 cliTaskTracker clear archive
 ```
 Deletes all tasks in archive
-```
+
