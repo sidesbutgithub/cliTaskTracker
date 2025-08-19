@@ -10,6 +10,7 @@ To install the CLI, cd to the directory where you want the code to be stored, th
 
 ```
 git clone https://github.com/sidesbutgithub/cliTaskTracker
+cd cliTaskTracker
 npm install
 npm run build
 npm link
