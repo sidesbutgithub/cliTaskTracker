@@ -36,6 +36,7 @@ Creates new custom feature if `<taskName>` does not currently have feature of `<
 ```
 cliTaskTracker delete `<taskName>`
 ```
+Deletes task of `<taskName>`
 
 ### List tasks
 ```
